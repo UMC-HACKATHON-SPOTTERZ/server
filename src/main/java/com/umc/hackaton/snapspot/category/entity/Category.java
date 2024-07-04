@@ -1,11 +1,12 @@
 package com.umc.hackaton.snapspot.category.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.umc.hackaton.snapspot.config.entity.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -20,4 +21,10 @@ public class Category extends BaseEntity {
 
     @Column(name = "category_name", nullable = false)
     private String categoryName;
+
+    @ToString.Exclude
+    @JsonManagedReference
+    @OrderBy("id")
+    @OneToMany(mappedBy = "category")
+    private final Set<CategorySpot> categorySpots = new LinkedHashSet<>();
 }
