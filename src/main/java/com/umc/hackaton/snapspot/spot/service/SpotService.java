@@ -4,8 +4,10 @@ import com.umc.hackaton.snapspot.category.entity.Category;
 import com.umc.hackaton.snapspot.category.entity.CategorySpot;
 import com.umc.hackaton.snapspot.category.repository.CategoryRepository;
 import com.umc.hackaton.snapspot.category.repository.CategorySpotRepository;
+import com.umc.hackaton.snapspot.spot.converter.SpotConverter;
 import com.umc.hackaton.snapspot.spot.dto.SpotDto;
 import com.umc.hackaton.snapspot.spot.dto.SpotRequestDto;
+import com.umc.hackaton.snapspot.spot.dto.SpotResponseDto;
 import com.umc.hackaton.snapspot.spot.entity.Spot;
 import com.umc.hackaton.snapspot.user.entity.User;
 import com.umc.hackaton.snapspot.spot.repository.SpotRepository;
@@ -71,5 +73,10 @@ public class SpotService {
     public Spot updateSpot(Long spotId, SpotRequestDto dto) {
         Spot spot = spotRepository.findById(spotId).orElse(null);
         return spot.update(dto);
+    }
+
+    public List<SpotResponseDto> readNearSpotList(double latitude, double longitude) {
+        List<Spot> spotList = spotRepository.findSpotsWithinDistance(latitude, longitude, 0.5);
+        return SpotConverter.toDtoList(spotList);
     }
 }
