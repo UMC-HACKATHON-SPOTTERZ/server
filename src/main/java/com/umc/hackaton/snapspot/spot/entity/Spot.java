@@ -46,4 +46,12 @@ public class Spot extends BaseEntity {
 
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
+
+    public void increaseLike() {
+        this.likeNum  -= 1;
+    }
+
+    public void decreaseLike() {
+        this.likeNum  += 1;
+    }
 }
