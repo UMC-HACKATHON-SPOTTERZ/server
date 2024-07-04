@@ -4,6 +4,8 @@ import com.umc.hackaton.snapspot.spot.entity.Spot;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 public class SpotRequestDto {
     private Long userId;
@@ -12,5 +14,6 @@ public class SpotRequestDto {
     private String title;
     private String description;
     private String imgUrl;
+    private List<Long> categoryNums;
 
 }

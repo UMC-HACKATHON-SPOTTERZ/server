@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -22,7 +23,7 @@ public class Spot extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -47,11 +48,16 @@ public class Spot extends BaseEntity {
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    public void increaseLike() {
-        this.likeNum  -= 1;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Spot spot = (Spot) o;
+        return Objects.equals(id, spot.id);
     }
 
-    public void decreaseLike() {
-        this.likeNum  += 1;
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
