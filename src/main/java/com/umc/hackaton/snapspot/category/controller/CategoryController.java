@@ -4,6 +4,7 @@ import com.umc.hackaton.snapspot.category.dto.CategoryRequestDto;
 import com.umc.hackaton.snapspot.category.entity.Category;
 import com.umc.hackaton.snapspot.category.service.CategoryService;
 import com.umc.hackaton.snapspot.savespot.dto.UserFolderRequestDto;
+import com.umc.hackaton.snapspot.spot.entity.Spot;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,19 @@ public class CategoryController {
         } catch (Exception e){
             log.info("카테고리 리스트 조회에 실패하였습니다.", e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("카테고리 리스트 조회에 실패하였습니다.");
+        }
+    }
+
+    @GetMapping("/spots")
+    public ResponseEntity<?> showSpotsByCategoryId(
+            @RequestParam List<Long> categoryIds
+    ) {
+        try {
+            List<Spot> spots = categoryService.showSpotsByCategoryIds(categoryIds);
+            return ResponseEntity.ok().body(spots);
+        } catch (Exception e){
+            log.info("카테고리별 스팟 리스트 조회에 실패하였습니다.", e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("카테고리별 스팟 리스트 조회에 실패하였습니다.");
         }
     }
 }
