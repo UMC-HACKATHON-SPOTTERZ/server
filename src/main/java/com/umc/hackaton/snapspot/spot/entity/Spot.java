@@ -35,11 +35,11 @@ public class Spot extends BaseEntity {
     @Column(name = "img_url", nullable = false)
     private String imgUrl;
 
-    @Column(name = "like_num", nullable = false)
-    private Long likeNum;
+    @Column(name = "like_num")
+    private Long likeNum = 0L;
 
-    @Column(name = "visit_num", nullable = false)
-    private Long visitNum;
+    @Column(name = "visit_num")
+    private Long visitNum =0L;
 
     @Column(name = "title", nullable = false)
     private String title;
