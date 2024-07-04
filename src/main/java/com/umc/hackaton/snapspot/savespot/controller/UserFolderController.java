@@ -30,7 +30,9 @@ public class UserFolderController {
     }
 
     @DeleteMapping("/{folderId}")
-    public ResponseEntity<?> deleteFolder(@PathVariable("folderId") Long folderId) {
+    public ResponseEntity<?> deleteFolder(
+            @PathVariable("folderId") Long folderId
+    ) {
         try {
             userFolderService.delete(folderId);
             return ResponseEntity.ok().body("Success");
@@ -39,4 +41,19 @@ public class UserFolderController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("폴더 삭제에 실패하였습니다.");
         }
     }
+
+    @PatchMapping("/{folderId}/")
+    public ResponseEntity<?> updateFolder(
+            @PathVariable("folderId") Long folderId,
+            @RequestBody UserFolderRequestDto folder
+            ) {
+        try {
+            UserFolder userFolder = userFolderService.update(folderId, folder);
+            return ResponseEntity.ok().body(userFolder);
+        } catch (Exception e){
+            log.info("유저 폴더 업데이트에 실패하였습니다.", e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("폴더 삭제에 실패하였습니다.");
+        }
+    }
+
 }

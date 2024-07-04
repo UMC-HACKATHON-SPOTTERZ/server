@@ -26,4 +26,11 @@ public class UserFolderService {
         userFolder.setIsDeleted(true);
         userFolderRepository.save(userFolder);
     }
+
+    public UserFolder update(Long folderId, UserFolderRequestDto userFolderRequestDto) {
+        UserFolder userFolder = userFolderRepository.findById(folderId).orElse(null);
+        userFolder.setFolderName(userFolderRequestDto.getFolderName());
+        userFolderRepository.save(userFolder);
+        return userFolderRepository.findById(folderId).get();
+    }
 }
