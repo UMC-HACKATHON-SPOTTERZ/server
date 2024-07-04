@@ -59,7 +59,7 @@ public class Spot extends BaseEntity {
 
     public Spot update(SpotRequestDto dto){
         this.description = dto.getDescription();
-        this.imgUrl = dto.getImgUrl();;
+//        this.imgUrl = dto.getImgUrl();;
         this.title = dto.getTitle();
         return this;
     }

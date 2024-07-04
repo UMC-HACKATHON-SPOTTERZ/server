@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -23,9 +24,9 @@ public class SpotController {
     private final SpotService spotService;
 
     @PostMapping
-    public ResponseEntity<?> upload(@RequestBody SpotRequestDto dto) {
+    public ResponseEntity<?> upload(@RequestBody SpotRequestDto dto, MultipartFile file) {
         try {
-            Spot spot = spotService.upload(dto);
+            Spot spot = spotService.upload(dto, file);
             return ResponseEntity.ok().body(spot);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("스팟 업로드에 실패하였습니다.");
