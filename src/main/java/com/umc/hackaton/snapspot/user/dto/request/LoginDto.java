@@ -1,4 +1,4 @@
-package com.umc.hackaton.snapspot.user.dto;
+package com.umc.hackaton.snapspot.user.dto.request;
 
 
 import lombok.Getter;

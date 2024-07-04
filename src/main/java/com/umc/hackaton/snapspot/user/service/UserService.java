@@ -1,8 +1,9 @@
 package com.umc.hackaton.snapspot.user.service;
 
-import com.umc.hackaton.snapspot.user.dto.LoginDto;
-import com.umc.hackaton.snapspot.user.dto.UserRequestDto;
-import com.umc.hackaton.snapspot.user.dto.UserResponseDto;
+import com.umc.hackaton.snapspot.user.dto.request.ImageUploadDto;
+import com.umc.hackaton.snapspot.user.dto.request.LoginDto;
+import com.umc.hackaton.snapspot.user.dto.request.UserRequestDto;
+import com.umc.hackaton.snapspot.user.dto.response.UserResponseDto;
 import com.umc.hackaton.snapspot.user.entity.User;
 import com.umc.hackaton.snapspot.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -11,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service
@@ -42,9 +42,16 @@ public class UserService {
         return UserResponseDto.builder()
                 .id(loginuser.get().getId())
                 .username(loginuser.get().getUsername())
-                .nickname(loginuser.get().getNickname())
-                .profileImg(loginuser.get().getProfileImg())
                 .build();
+    }
+
+    @Transactional
+    public void imageUploads(ImageUploadDto dto) {
+        Optional<User> user = userRepository.findById(dto.getId());
+        if (user.isEmpty()) {
+            throw new IllegalArgumentException("존재하지 않는 사용자입니다.");
+        }
+        user.get().updateProfileImg(dto.getImage());
 
     }
 }
