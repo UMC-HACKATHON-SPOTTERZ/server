@@ -9,14 +9,6 @@ insert into Category (deleted, category_name) values (false, '반려동물');
 insert into Category (deleted, category_name) values (false, '친구');
 insert into Category (deleted, category_name) values (false, '단독');
 
-insert into CategorySpot (category_id, deleted, spot_id) values (1, false, 1);
-insert into CategorySpot (category_id, deleted, spot_id) values (2, false, 1);
-insert into CategorySpot (category_id, deleted, spot_id) values (2, false, 2);
-insert into CategorySpot (category_id, deleted, spot_id) values (3, false, 2);
-insert into CategorySpot (category_id, deleted, spot_id) values (3, false, 3);
-insert into CategorySpot (category_id, deleted, spot_id) values (4, false, 3);
-insert into CategorySpot (category_id, deleted, spot_id) values (5, false, 3);
-insert into CategorySpot (category_id, deleted, spot_id) values (6, false, 3);
 
 insert into UserFolder (folder_name, deleted, user_id) values ('파리', false, 1);
 insert into UserFolder (folder_name, deleted, user_id) values ('선정릉', false, 1);
