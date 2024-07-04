@@ -22,7 +22,7 @@ public class CategorySpot extends BaseEntity{
     private Long id;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "spot_id")
     @JsonBackReference
     private Spot spot;

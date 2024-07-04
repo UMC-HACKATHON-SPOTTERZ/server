@@ -38,20 +38,27 @@ public class CategoryService {
             Category category = categoryRepository.findById(categoryId).orElse(null);
             if (category != null) {
                 List<CategorySpot> categorySpots = categorySpotRepository.findAllByCategory(category);
-                for (CategorySpot categorySpot : categorySpots) {
-                    SpotDto spotDto = new SpotDto();
-                    User user = categorySpot.getSpot().getUser(); // 이 부분에서 User 엔티티를 Eager로 로딩
-                    spotDto.setUser(user);
-                    spotDto.setLatitude(categorySpot.getSpot().getLatitude());
-                    spotDto.setLongitude(categorySpot.getSpot().getLongitude());
-                    spotDto.setTitle(categorySpot.getSpot().getTitle());
-                    spotDto.setDescription(categorySpot.getSpot().getDescription());
-                    spotDto.setImgUrl(categorySpot.getSpot().getImgUrl());
-
-                    Spot spot = spotDto.toEntity();
-                    spots.add(spot);
-                }
+                List<Spot> categorySpotsMapped = categorySpots.stream()
+                        .map(CategorySpot::getSpot)
+                        .collect(Collectors.toList());
+                spots.addAll(categorySpotsMapped);
             }
+//            if (category != null) {
+//                List<CategorySpot> categorySpots = categorySpotRepository.findAllByCategory(category);
+//                for (CategorySpot categorySpot : categorySpots) {
+//                    SpotDto spotDto = new SpotDto();
+//                    User user = categorySpot.getSpot().getUser();
+//                    spotDto.setUser(user);
+//                    spotDto.setLatitude(categorySpot.getSpot().getLatitude());
+//                    spotDto.setLongitude(categorySpot.getSpot().getLongitude());
+//                    spotDto.setTitle(categorySpot.getSpot().getTitle());
+//                    spotDto.setDescription(categorySpot.getSpot().getDescription());
+//                    spotDto.setImgUrl(categorySpot.getSpot().getImgUrl());
+//
+//                    Spot spot = spotDto.toEntity();
+//                    spots.add(spot);
+//                }
+//            }
         }
         return new ArrayList<>(spots);
     }
