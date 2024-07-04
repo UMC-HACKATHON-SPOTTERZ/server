@@ -1,8 +1,9 @@
 package com.umc.hackaton.snapspot.user.controller;
 
-import com.umc.hackaton.snapspot.user.dto.LoginDto;
-import com.umc.hackaton.snapspot.user.dto.UserRequestDto;
-import com.umc.hackaton.snapspot.user.dto.UserResponseDto;
+import com.umc.hackaton.snapspot.user.dto.request.ImageUploadDto;
+import com.umc.hackaton.snapspot.user.dto.request.LoginDto;
+import com.umc.hackaton.snapspot.user.dto.request.UserRequestDto;
+import com.umc.hackaton.snapspot.user.dto.response.UserResponseDto;
 import com.umc.hackaton.snapspot.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,17 @@ public class UserController {
         } catch (Exception e) {
             log.info("로그인에 실패하였습니다.", e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("로그인에 실패하였습니다.");
+        }
+    }
+
+    @PostMapping("/image-uploads")
+    public ResponseEntity<?> imageUploads(@RequestBody ImageUploadDto dto) {
+        try {
+            userService.imageUploads(dto);
+            return ResponseEntity.ok().body("이미지 업로드 성공.");
+        } catch (Exception e) {
+            log.info("이미지 업로드에 실패하였습니다.", e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미지 업로드에 실패하였습니다.");
         }
     }
 }

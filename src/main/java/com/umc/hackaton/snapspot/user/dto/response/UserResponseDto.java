@@ -1,4 +1,4 @@
-package com.umc.hackaton.snapspot.user.dto;
+package com.umc.hackaton.snapspot.user.dto.response;
 
 import com.umc.hackaton.snapspot.user.entity.User;
 import lombok.Builder;
