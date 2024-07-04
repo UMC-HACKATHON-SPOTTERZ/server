@@ -34,7 +34,7 @@ public class Spot extends BaseEntity {
     @Column(name = "longitude", nullable = false)
     private Double longitude;
 
-    @Column(name = "img_url", nullable = false)
+    @Column(name = "img_url", nullable = false, length = 1000)
     private String imgUrl;
 
     @Column(name = "like_num")
