@@ -17,7 +17,7 @@ public class UserFolderService {
 
     @Transactional
     public void save(UserFolderRequestDto userFolder) {
-        User user = userRepository.findByUserId(userFolder.getUserId().toString()).orElse(null);
+        User user = userRepository.findById(userFolder.getUserId()).orElse(null);
         userFolderRepository.save(userFolder.toEntity(user));
     }
 }
