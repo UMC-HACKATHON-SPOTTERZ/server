@@ -1,6 +1,7 @@
 package com.umc.hackaton.snapspot.spot.controller;
 
 import com.umc.hackaton.snapspot.spot.dto.SpotRequestDto;
+import com.umc.hackaton.snapspot.spot.dto.SpotResponseDto;
 import com.umc.hackaton.snapspot.spot.entity.Spot;
 import com.umc.hackaton.snapspot.spot.service.SpotService;
 import lombok.RequiredArgsConstructor;
@@ -74,5 +75,14 @@ public class SpotController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("스팟 수정에 실패하였습니다.");
         }
     }
-
+    @GetMapping("list")
+    public ResponseEntity<List<SpotResponseDto>> readNearSpotList(@RequestParam("latitude") double latitude, @RequestParam("longitude") double longitude){
+        return ResponseEntity.ok(spotService.readNearSpotList(latitude, longitude));
+    }
+  
+     @GetMapping("list/category")
+    public ResponseEntity<List<SpotResponseDto>> readCategoryNearSpotList(@RequestParam("latitude") double latitude, @RequestParam("longitude") double longitude, @RequestParam("categoryId") Long categoryId){
+        List<SpotResponseDto> list = spotService.readNearSpotList(latitude, longitude);
+        return ResponseEntity.ok(spotService.readCategoryNearSpotList(list, categoryId));
+    } 
 }
