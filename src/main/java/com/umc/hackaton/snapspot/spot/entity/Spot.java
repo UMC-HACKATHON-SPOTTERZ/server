@@ -1,6 +1,7 @@
 package com.umc.hackaton.snapspot.spot.entity;
 
 import com.umc.hackaton.snapspot.config.entity.BaseEntity;
+import com.umc.hackaton.snapspot.spot.dto.SpotRequestDto;
 import com.umc.hackaton.snapspot.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -54,6 +55,13 @@ public class Spot extends BaseEntity {
 
     public void decreaseLike() {
         this.likeNum  += 1;
+    }
+
+    public Spot update(SpotRequestDto dto){
+        this.description = dto.getDescription();
+        this.imgUrl = dto.getImgUrl();;
+        this.title = dto.getTitle();
+        return this;
     }
 
     @Override

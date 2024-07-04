@@ -13,6 +13,7 @@ import com.umc.hackaton.snapspot.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -57,5 +58,18 @@ public class SpotService {
         // CategorySpot 저장
         categorySpotRepository.saveAll(categorySpots);
 
+    }
+
+    public Spot getSpot(Long spotId) {
+        return spotRepository.findById(spotId).orElse(null);
+    }
+
+    public void deleteSpot(Long spotId) {
+        spotRepository.deleteById(spotId);
+    }
+
+    public Spot updateSpot(Long spotId, SpotRequestDto dto) {
+        Spot spot = spotRepository.findById(spotId).orElse(null);
+        return spot.update(dto);
     }
 }
