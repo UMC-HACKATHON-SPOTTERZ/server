@@ -1,6 +1,5 @@
 package com.umc.hackaton.snapspot.savespot.service;
 
-import com.umc.hackaton.snapspot.savespot.dto.SpotSaveResponseDto;
 import com.umc.hackaton.snapspot.savespot.dto.UserFolderRequestDto;
 import com.umc.hackaton.snapspot.savespot.entity.SpotSave;
 import com.umc.hackaton.snapspot.savespot.entity.UserFolder;
