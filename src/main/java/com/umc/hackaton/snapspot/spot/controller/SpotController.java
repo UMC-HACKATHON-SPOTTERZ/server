@@ -24,7 +24,7 @@ public class SpotController {
     private final SpotService spotService;
 
     @PostMapping
-    public ResponseEntity<?> upload(@RequestBody SpotRequestDto dto, MultipartFile file) {
+    public ResponseEntity<?> upload(@RequestPart(value = "file") MultipartFile file,  @RequestPart SpotRequestDto dto) {
         try {
             Spot spot = spotService.upload(dto, file);
             return ResponseEntity.ok().body(spot);

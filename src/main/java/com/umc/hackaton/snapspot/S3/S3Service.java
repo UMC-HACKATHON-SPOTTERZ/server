@@ -59,5 +59,6 @@ public class S3Service {
     public String getFile(String fileName) {
         return amazonS3Client.getUrl(bucket, fileName).toString();
 
+
     }
 }

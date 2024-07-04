@@ -69,6 +69,8 @@ public class SpotService {
         return savedSpot;
     }
 
+
+
     @Transactional
     public Spot getSpotById(Long spotId) {
         // spotId를 사용하여 Repository를 통해 Spot을 가져옴
