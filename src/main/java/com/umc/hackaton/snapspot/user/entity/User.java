@@ -6,13 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user")
 public class User extends BaseEntity {
 
     @Id
@@ -23,8 +23,8 @@ public class User extends BaseEntity {
     @Column(name = "nickname", nullable = false)
     private String nickname;
 
-    @Column(name = "user_id", nullable = false)
-    private String userId;
+    @Column(name = "username", nullable = false)
+    private String username;
 
     @Column(name = "password", nullable = false)
     private String password;
@@ -32,4 +32,10 @@ public class User extends BaseEntity {
     @Column(name = "profile_img", nullable = false)
     private String profileImg;
 
+    @PrePersist
+    public void prePersist() {
+        if (this.profileImg == null || this.profileImg.isEmpty()) {
+            this.profileImg = "default";
+        }
+    }
 }
