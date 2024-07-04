@@ -5,9 +5,7 @@ import com.umc.hackaton.snapspot.category.entity.Category;
 import com.umc.hackaton.snapspot.category.entity.CategorySpot;
 import com.umc.hackaton.snapspot.category.repository.CategoryRepository;
 import com.umc.hackaton.snapspot.category.repository.CategorySpotRepository;
-import com.umc.hackaton.snapspot.spot.dto.SpotDto;
 import com.umc.hackaton.snapspot.spot.entity.Spot;
-import com.umc.hackaton.snapspot.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -43,22 +41,6 @@ public class CategoryService {
                         .collect(Collectors.toList());
                 spots.addAll(categorySpotsMapped);
             }
-//            if (category != null) {
-//                List<CategorySpot> categorySpots = categorySpotRepository.findAllByCategory(category);
-//                for (CategorySpot categorySpot : categorySpots) {
-//                    SpotDto spotDto = new SpotDto();
-//                    User user = categorySpot.getSpot().getUser();
-//                    spotDto.setUser(user);
-//                    spotDto.setLatitude(categorySpot.getSpot().getLatitude());
-//                    spotDto.setLongitude(categorySpot.getSpot().getLongitude());
-//                    spotDto.setTitle(categorySpot.getSpot().getTitle());
-//                    spotDto.setDescription(categorySpot.getSpot().getDescription());
-//                    spotDto.setImgUrl(categorySpot.getSpot().getImgUrl());
-//
-//                    Spot spot = spotDto.toEntity();
-//                    spots.add(spot);
-//                }
-//            }
         }
         return new ArrayList<>(spots);
     }
