@@ -22,8 +22,8 @@ public class SpotController {
     @PostMapping
     public ResponseEntity<?> upload(@RequestBody SpotRequestDto dto) {
         try {
-            spotService.upload(dto);
-            return ResponseEntity.ok().body("스팟 업로드 성공.");
+            Spot spot = spotService.upload(dto);
+            return ResponseEntity.ok().body(spot);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("스팟 업로드에 실패하였습니다.");
         }

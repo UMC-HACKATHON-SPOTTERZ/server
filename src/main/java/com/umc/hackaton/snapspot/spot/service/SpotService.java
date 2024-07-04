@@ -27,7 +27,7 @@ public class SpotService {
     private final CategorySpotRepository categorySpotRepository;
 
     @Transactional
-    public void upload(SpotRequestDto dto) {
+    public Spot upload(SpotRequestDto dto) {
 
         User user = userRepository.findUserById(dto.getUserId());
 
@@ -55,7 +55,7 @@ public class SpotService {
 
         // CategorySpot 저장
         categorySpotRepository.saveAll(categorySpots);
-
+        return savedSpot;
     }
 
     @Transactional
