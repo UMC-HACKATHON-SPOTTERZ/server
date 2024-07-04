@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @Slf4j
@@ -53,6 +55,17 @@ public class UserFolderController {
         } catch (Exception e){
             log.info("유저 폴더 업데이트에 실패하였습니다.", e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("폴더 삭제에 실패하였습니다.");
+        }
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> getFolders(@PathVariable("userId") Long userId) {
+        try {
+            List<UserFolder> userFolders = userFolderService.getAllFoldersByUserId(userId);
+            return ResponseEntity.ok().body(userFolders);
+        } catch (Exception e) {
+            log.info("유저 폴더 조회에 실패하였습니다.", e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("폴더 조회에 실패하였습니다.");
         }
     }
 

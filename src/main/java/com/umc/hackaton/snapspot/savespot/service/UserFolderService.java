@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserFolderService {
@@ -32,5 +34,9 @@ public class UserFolderService {
         userFolder.setFolderName(userFolderRequestDto.getFolderName());
         userFolderRepository.save(userFolder);
         return userFolderRepository.findById(folderId).get();
+    }
+
+    public List<UserFolder> getAllFoldersByUserId(Long userId) {
+        return userFolderRepository.findAllByUserIdAndIsDeletedFalse(userId);
     }
 }

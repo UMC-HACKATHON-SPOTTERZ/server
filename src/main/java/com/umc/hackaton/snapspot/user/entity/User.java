@@ -1,11 +1,13 @@
 package com.umc.hackaton.snapspot.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.umc.hackaton.snapspot.config.entity.BaseEntity;
+import com.umc.hackaton.snapspot.savespot.entity.UserFolder;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -41,4 +43,10 @@ public class User extends BaseEntity {
     public void updateProfileImg(String profileImg) {
         this.profileImg = profileImg;
     }
+
+    @ToString.Exclude
+    @JsonManagedReference
+    @OrderBy("id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private final Set<UserFolder> userFolders = new LinkedHashSet<>();
 }

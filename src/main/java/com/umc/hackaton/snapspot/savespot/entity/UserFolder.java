@@ -1,5 +1,6 @@
 package com.umc.hackaton.snapspot.savespot.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.umc.hackaton.snapspot.config.entity.BaseEntity;
 import com.umc.hackaton.snapspot.user.entity.User;
@@ -20,6 +21,7 @@ public class UserFolder extends BaseEntity {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     @Setter
