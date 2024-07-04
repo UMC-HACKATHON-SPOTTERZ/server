@@ -1,6 +1,8 @@
 package com.umc.hackaton.snapspot.user.controller;
 
+import com.umc.hackaton.snapspot.user.dto.LoginDto;
 import com.umc.hackaton.snapspot.user.dto.UserRequestDto;
+import com.umc.hackaton.snapspot.user.dto.UserResponseDto;
 import com.umc.hackaton.snapspot.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,8 +35,8 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDto dto) {
         try {
-            userService.login(dto);
-            return ResponseEntity.ok().body("로그인 성공.");
+            UserResponseDto responseDto = userService.login(dto);
+            return ResponseEntity.ok( responseDto);
         } catch (Exception e) {
             log.info("로그인에 실패하였습니다.", e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("로그인에 실패하였습니다.");

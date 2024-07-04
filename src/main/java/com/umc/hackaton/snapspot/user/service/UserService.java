@@ -42,10 +42,7 @@ public class UserService {
         return UserResponseDto.builder()
                 .id(loginuser.get().getId())
                 .username(loginuser.get().getUsername())
-                .nickname(loginuser.get().getNickname())
-                .profileImg(loginuser.get().getProfileImg())
                 .build();
-
     }
 }
 
