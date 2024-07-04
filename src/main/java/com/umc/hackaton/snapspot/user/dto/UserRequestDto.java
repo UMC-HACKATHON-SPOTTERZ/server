@@ -7,16 +7,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
 public class UserRequestDto {
-    private String userId;
+    private String username;
     private String password;
     private String nickname;
 
     @Builder
     public User toEntity(PasswordEncoder passwordEncoder) {
         return User.builder()
-                .userId(userId)
+                .username(username)
                 .password(passwordEncoder.encode(password))
                 .nickname(nickname)
+                .profileImg("default")
                 .build();
     }
 }
