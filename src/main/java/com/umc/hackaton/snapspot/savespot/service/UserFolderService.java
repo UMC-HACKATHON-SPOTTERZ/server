@@ -20,4 +20,10 @@ public class UserFolderService {
         User user = userRepository.findById(userFolder.getUserId()).orElse(null);
         userFolderRepository.save(userFolder.toEntity(user));
     }
+
+    public void delete(Long folderId) {
+        UserFolder userFolder = userFolderRepository.findById(folderId).orElse(null);
+        userFolder.setIsDeleted(true);
+        userFolderRepository.save(userFolder);
+    }
 }

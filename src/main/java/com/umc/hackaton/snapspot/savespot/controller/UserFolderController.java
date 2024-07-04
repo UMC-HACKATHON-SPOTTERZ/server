@@ -8,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,7 +18,6 @@ public class UserFolderController {
     private final UserFolderService userFolderService;
     private final UserService userService;
 
-    //TODO FolderResponseDTO 사용 여부 확인
     @PostMapping("/")
     public ResponseEntity<?> createFolder(@RequestBody UserFolderRequestDto folder) {
         try {
@@ -30,6 +26,17 @@ public class UserFolderController {
         } catch (Exception e){
             log.info("유저 폴더 생성에 실패하였습니다.", e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("폴더 생성에 실패하였습니다.");
+        }
+    }
+
+    @DeleteMapping("/{folderId}")
+    public ResponseEntity<?> deleteFolder(@PathVariable("folderId") Long folderId) {
+        try {
+            userFolderService.delete(folderId);
+            return ResponseEntity.ok().body("Success");
+        } catch (Exception e){
+            log.info("유저 폴더 삭제에 실패하였습니다.", e);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("폴더 삭제에 실패하였습니다.");
         }
     }
 }
