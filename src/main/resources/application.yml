@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/spot_db?useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: 1226
+    url: jdbc:mysql://mysql_db:3306/${MYSQL_DATABASE}?useSSL=false&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USER}
+    password:  ${MYSQL_PASSWORD}
 
   jpa:
     hibernate:
