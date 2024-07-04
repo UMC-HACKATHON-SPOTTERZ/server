@@ -9,13 +9,11 @@ import com.umc.hackaton.snapspot.spot.dto.SpotDto;
 import com.umc.hackaton.snapspot.spot.dto.SpotRequestDto;
 import com.umc.hackaton.snapspot.spot.dto.SpotResponseDto;
 import com.umc.hackaton.snapspot.spot.entity.Spot;
-import com.umc.hackaton.snapspot.user.entity.User;
 import com.umc.hackaton.snapspot.spot.repository.SpotRepository;
+import com.umc.hackaton.snapspot.user.entity.User;
 import com.umc.hackaton.snapspot.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,7 +29,7 @@ public class SpotService {
     private final CategorySpotRepository categorySpotRepository;
 
     @Transactional
-    public void upload(SpotRequestDto dto) {
+    public Spot upload(SpotRequestDto dto) {
 
         User user = userRepository.findUserById(dto.getUserId());
 
@@ -59,7 +57,14 @@ public class SpotService {
 
         // CategorySpot 저장
         categorySpotRepository.saveAll(categorySpots);
+        return savedSpot;
+    }
 
+    @Transactional
+    public Spot getSpotById(Long spotId) {
+        // spotId를 사용하여 Repository를 통해 Spot을 가져옴
+        return spotRepository.findById(spotId)
+                .orElseThrow(() -> new RuntimeException("Spot not found with id: " + spotId));
     }
 
     public Spot getSpot(Long spotId) {
