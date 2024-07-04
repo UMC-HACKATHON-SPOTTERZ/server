@@ -9,22 +9,6 @@ insert into Category (deleted, category_name) values (false, '반려동물');
 insert into Category (deleted, category_name) values (false, '친구');
 insert into Category (deleted, category_name) values (false, '단독');
 
-insert into spot
-(description, img_url, deleted, latitude, like_num, longitude, title, user_id, visit_num)
-values ( '예시 데이터입니다1!!', '', false, 37.5078306, 0, 127.0452337, '테스트!!!!! 이곳 근처!', 1, 0);
-insert into spot
-(description, img_url, deleted, latitude, like_num, longitude, title, user_id, visit_num)
-values ( '예시 데이터입니다2!!', '', false, 37.5078306, 0, 127.0452337, '테스트!!!!! 이곳 근처!!', 1, 0);
-insert into spot
-(description, img_url, deleted, latitude, like_num, longitude, title, user_id, visit_num)
-values ( '예시 데이터입니다3!!', '', false, 37.5078306, 0, 127.0452337, '테스트!!!!! 이곳 근처!!!!', 1, 0);
-insert into spot
-(description, img_url, deleted, latitude, like_num, longitude, title, user_id, visit_num)
-values ( '예시 데이터입니다4!!', '', false, 37.5078306, 0, 127.0452337, '테스트!!!!! 이곳 근처!', 1, 0);
-insert into spot
-(description, img_url, deleted, latitude, like_num, longitude, title, user_id, visit_num)
-values ( '예시 데이터입니다5!!', '', false, 37.5078306, 0, 127.0452337, '테스트!!!!! 이곳 근처!', 1, 0);
-
 insert into CategorySpot (category_id, deleted, spot_id) values (1, false, 1);
 insert into CategorySpot (category_id, deleted, spot_id) values (2, false, 1);
 insert into CategorySpot (category_id, deleted, spot_id) values (2, false, 2);
