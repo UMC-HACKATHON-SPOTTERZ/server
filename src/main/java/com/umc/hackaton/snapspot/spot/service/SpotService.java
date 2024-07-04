@@ -1,5 +1,6 @@
 package com.umc.hackaton.snapspot.spot.service;
 
+import com.umc.hackaton.snapspot.S3.S3Service;
 import com.umc.hackaton.snapspot.category.entity.Category;
 import com.umc.hackaton.snapspot.category.entity.CategorySpot;
 import com.umc.hackaton.snapspot.category.repository.CategoryRepository;
@@ -14,7 +15,10 @@ import com.umc.hackaton.snapspot.user.entity.User;
 import com.umc.hackaton.snapspot.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +27,18 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class SpotService {
+    private static final Logger log = LoggerFactory.getLogger(SpotService.class);
     private final SpotRepository spotRepository;
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
     private final CategorySpotRepository categorySpotRepository;
+    private final S3Service s3Service;
 
     @Transactional
-    public Spot upload(SpotRequestDto dto) {
+    public Spot upload(SpotRequestDto dto, MultipartFile file) {
+
+        String imgUrl = s3Service.saveFile(file);
+        log.info("imgUrl: " + imgUrl);
 
         User user = userRepository.findUserById(dto.getUserId());
 
@@ -39,7 +48,7 @@ public class SpotService {
         spotDto.setLatitude(dto.getLatitude());
         spotDto.setTitle(dto.getTitle());
         spotDto.setDescription(dto.getDescription());
-        spotDto.setImgUrl(dto.getImgUrl());
+        spotDto.setImgUrl(imgUrl);
 
         Spot savedSpot = spotRepository.save(spotDto.toEntity());
 
@@ -59,6 +68,8 @@ public class SpotService {
         categorySpotRepository.saveAll(categorySpots);
         return savedSpot;
     }
+
+
 
     @Transactional
     public Spot getSpotById(Long spotId) {
