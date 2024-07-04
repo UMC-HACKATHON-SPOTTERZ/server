@@ -24,6 +24,6 @@ public abstract class BaseEntity {
     private LocalDateTime updatedAt;
 
     @Setter
-    @Column(name = "deleted", nullable = false, columnDefinition = "bit(1) default 0")
+    @Column(name = "deleted", nullable = false)
     private Boolean isDeleted = false;
 }
