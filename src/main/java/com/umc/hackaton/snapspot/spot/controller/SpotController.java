@@ -1,15 +1,13 @@
 package com.umc.hackaton.snapspot.spot.controller;
 
 import com.umc.hackaton.snapspot.spot.dto.SpotRequestDto;
+import com.umc.hackaton.snapspot.spot.entity.Spot;
 import com.umc.hackaton.snapspot.spot.service.SpotService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,5 +25,10 @@ public class SpotController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("스팟 업로드에 실패하였습니다.");
         }
+    }
+
+    @GetMapping("/list/{spotId}")
+    public Spot getSpotById(@PathVariable Long spotId) {
+        return spotService.getSpotById(spotId);
     }
 }

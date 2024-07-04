@@ -33,4 +33,11 @@ public class SpotService {
         spotRepository.save(spotDto.toEntity());
 
     }
+
+    @Transactional
+    public Spot getSpotById(Long spotId) {
+        // spotId를 사용하여 Repository를 통해 Spot을 가져옴
+        return spotRepository.findById(spotId)
+                .orElseThrow(() -> new RuntimeException("Spot not found with id: " + spotId));
+    }
 }
