@@ -32,4 +32,6 @@ public class CategorySpot extends BaseEntity{
     @JoinColumn(name = "category_id")
     @JsonBackReference
     private Category category;
+
+
 }

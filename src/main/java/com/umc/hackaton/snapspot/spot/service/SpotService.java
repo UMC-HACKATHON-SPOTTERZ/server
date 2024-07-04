@@ -1,5 +1,9 @@
 package com.umc.hackaton.snapspot.spot.service;
 
+import com.umc.hackaton.snapspot.category.entity.Category;
+import com.umc.hackaton.snapspot.category.entity.CategorySpot;
+import com.umc.hackaton.snapspot.category.repository.CategoryRepository;
+import com.umc.hackaton.snapspot.category.repository.CategorySpotRepository;
 import com.umc.hackaton.snapspot.spot.dto.SpotDto;
 import com.umc.hackaton.snapspot.spot.dto.SpotRequestDto;
 import com.umc.hackaton.snapspot.spot.entity.Spot;
@@ -11,11 +15,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class SpotService {
     private final SpotRepository spotRepository;
     private final UserRepository userRepository;
+    private final CategoryRepository categoryRepository;
+    private final CategorySpotRepository categorySpotRepository;
 
     @Transactional
     public void upload(SpotRequestDto dto) {
@@ -30,7 +40,22 @@ public class SpotService {
         spotDto.setDescription(dto.getDescription());
         spotDto.setImgUrl(dto.getImgUrl());
 
-        spotRepository.save(spotDto.toEntity());
+        Spot savedSpot = spotRepository.save(spotDto.toEntity());
+
+        List<CategorySpot> categorySpots = new ArrayList<>();
+        for (Long categoryId : dto.getCategoryNums()) {
+            Optional<Category> categoryOptional = categoryRepository.findById(categoryId);
+            categoryOptional.ifPresent(category -> {
+                CategorySpot categorySpot = CategorySpot.builder()
+                        .category(category)
+                        .spot(savedSpot)
+                        .build();
+                categorySpots.add(categorySpot);
+            });
+        }
+
+        // CategorySpot 저장
+        categorySpotRepository.saveAll(categorySpots);
 
     }
 }
