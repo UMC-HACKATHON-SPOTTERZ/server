@@ -11,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 
 @RequiredArgsConstructor
 @RestController
@@ -78,16 +76,14 @@ public class SpotController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("스팟 수정에 실패하였습니다.");
         }
     }
-
-
     @GetMapping("list")
     public ResponseEntity<List<SpotResponseDto>> readNearSpotList(@RequestParam("latitude") double latitude, @RequestParam("longitude") double longitude){
         return ResponseEntity.ok(spotService.readNearSpotList(latitude, longitude));
     }
-
-    @GetMapping("list/category")
+  
+     @GetMapping("list/category")
     public ResponseEntity<List<SpotResponseDto>> readCategoryNearSpotList(@RequestParam("latitude") double latitude, @RequestParam("longitude") double longitude, @RequestParam("categoryId") Long categoryId){
         List<SpotResponseDto> list = spotService.readNearSpotList(latitude, longitude);
         return ResponseEntity.ok(spotService.readCategoryNearSpotList(list, categoryId));
-    }
+    } 
 }

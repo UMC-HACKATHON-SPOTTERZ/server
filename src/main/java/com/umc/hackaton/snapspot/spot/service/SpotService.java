@@ -95,21 +95,4 @@ public class SpotService {
         List<Spot> spotList = spotRepository.findSpotsWithinDistance(latitude, longitude, 0.5);
         return SpotConverter.toDtoList(spotList);
     }
-
-
-    public List<SpotResponseDto> readCategoryNearSpotList(List<SpotResponseDto> spotList, Long categoryId) {
-        List<SpotResponseDto> filteredSpots = new ArrayList<>();
-
-        for (SpotResponseDto s : spotList) {
-            List<CategorySpot> categorySpotList = categorySpotRepository.findAllBySpot(
-                    spotRepository.findById(s.getSpotId()).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 사용자입니다."))
-            );
-            for (CategorySpot cs : categorySpotList) {
-                if (cs.getCategory().getId() == categoryId) {
-                    filteredSpots.add(s);
-                }
-            }
-        }
-        return filteredSpots;
-    }
 }
