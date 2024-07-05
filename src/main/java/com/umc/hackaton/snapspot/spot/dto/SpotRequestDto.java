@@ -13,6 +13,7 @@ public class SpotRequestDto {
     private Double longitude;
     private String title;
     private String description;
+    private String imgUrl;
     private List<Long> categoryNums;
 
 }
