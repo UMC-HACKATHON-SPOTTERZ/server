@@ -6,17 +6,15 @@ import com.umc.hackaton.snapspot.spot.entity.Spot;
 import com.umc.hackaton.snapspot.spot.repository.SpotRepository;
 import com.umc.hackaton.snapspot.user.entity.User;
 import com.umc.hackaton.snapspot.user.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class MypageService {
 
-    private final SpotRepository spotRepository;
-    private final UserRepository userRepository;
+    private SpotRepository spotRepository;
+    private UserRepository userRepository;
 
     public List<MypageDto.MySptDto> readAllMySpot(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(()-> new IllegalArgumentException("존재하지 않는 사용자입니다."));
